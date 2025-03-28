@@ -2,6 +2,7 @@
 
 
 
+
 Game::Game(SDL_Window* window, SDL_Renderer* renderer, int windowWidth, int windowHeight) :
     placementModeCurrent(PlacementMode::wall), 
     level(renderer, windowWidth / tileSize, windowHeight / tileSize) {
