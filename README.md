@@ -5,8 +5,8 @@
 - **Họ tên**: Trần Mạnh Chiến
 - **Mã sinh viên**: 24021395
 - **Lớp**: CS7
-- **Project**: 
-
+- **Project**: Conqueror's Journeyer
+- **Link giới thiệu game**: https://drive.google.com/file/d/1emjvsjPu1sByi9ODXMSFnEpz9ddaaBjj/view?usp=sharing
 #### Mục lục
 
 - [Conqueror's Journey](#conquerors-journey)
