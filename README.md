@@ -5,7 +5,7 @@
 - **Họ tên**: Trần Mạnh Chiến
 - **Mã sinh viên**: 24021395
 - **Lớp**: CS7
-- **Project**: Conqueror's Journeyer.
+- **Project**: 
 
 #### Mục lục
 
