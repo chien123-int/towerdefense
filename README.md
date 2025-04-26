@@ -14,8 +14,9 @@
   
   - [1. Lời nói đầu](#1-lời-nói-đầu)
   - [2. Cấu trúc chương trình](#2-cấu-trúc-chương-trình)
-  - [3. Hướng phát triển game](#3-hướng-phát-triển-game)
-  - [4. Nguồn tham khảo](#4-nguồn-tham-khảo)
+  - [3. Các thành phần của game](#3-các-thành-phần-của-game)
+  - [4. Hướng phát triển game](#3-hướng-phát-triển-game)
+  - [5. Nguồn tham khảo](#4-nguồn-tham-khảo)
 
 
 ## 1. Lời nói đầu
@@ -37,7 +38,20 @@ Cấu trúc chương trình của "Conqueror's Journey" được tổ chức m�
 - **`Obstacle.cpp`** và **`Obstacle.h`**: Định nghĩa lớp `Obstacle`, quản lý các chướng ngại vật trên đường đi.
 - **`Item.cpp`** và **`Item.h`**: Định nghĩa lớp `Item`, quản lý các vật phẩm có thể thu thập được trong game.
 - **`PowerUp.cpp`** và **`PowerUp.h`**: Định nghĩa lớp `PowerUp`, xử lý các hiệu ứng đặc biệt mà nhân vật có thể nhận được khi thu thập các vật phẩm để tăng sức mạnh.
-- ## 3. Hướng phát triển game.
+- ## 3. Các thành phần của game.
+- ## a. Player:
+- Người chơi tự di chuyển nhảy qua các vật cản được rand.
+- Nhận các item và power up dọc đường đi để tăng sức mạnh.
+- -Người chơi có một điểm đặc biệt là thanh stamine trên đầu người chơi giúp biết được chỉ số thể lực hiện tại.
+- ## b. Powerup và item:
+- Các vật phẩn sẽ xuất hiện dọc đường đi của nhân vật
+- Giúp tăng sức mạnh và nâng cấp nhân vật.
+
+- ## c. Obstacle và Enemy
+- Các vật cản sẽ xuất hiện ngẫu nhiên tùy theo cài đặt.
+- Các kẻ địch sẽ di chuyển ngược hướng với người chơi và tấn công họ.
+  
+- ## 4. Hướng phát triển game.
 **Ngôn ngữ lập trình**: C++
 - **Thư viện**: SDL2
   - **SDL_image**: Hỗ trợ tải và xử lý hình ảnh trong game.
@@ -50,7 +64,7 @@ Cấu trúc chương trình của "Conqueror's Journey" được tổ chức m�
   - Va chạm giữa người chơi và các vật phẩm thu thập được trên đường đi.
   - Va chạm giữa người chơi và kẻ địch để kiểm tra game over.
  
-  - ## 4. Nguồn tham khảo
+  - ## 5. Nguồn tham khảo
     - Sử dụng kỹ thuật chia tách file để tổ chức mã nguồn theo từng module, [Phát Triển Phần Mềm 123A-Z](https://www.youtube.com/@PhatTrienPhanMem123AZ).
     - Âm thanh(https://mixkit.co/free-sound-effects/game,https://pixabay.com/vi/music/search/nh%E1%BA%A1c%20n%E1%BB%81n%20ch%C6%A1i%20game).
     - Ảnh(chat gpt, https://vi.pngtree.com/so/nh%C3%A2n-v%E1%BA%ADt-game).
