@@ -45,6 +45,13 @@ Cấu trúc chương trình của "Conqueror's Journey" được tổ chức m�
 - -Người chơi có một điểm đặc biệt là thanh stamine trên đầu người chơi giúp biết được chỉ số thể lực hiện tại.
 - ## b. Powerup và item:
 - Các vật phẩn sẽ xuất hiện dọc đường đi của nhân vật
+- gồm :
+- <div style="text-align: center;">
+![image](img/power-up1.png)
+![image](img/power-up2.png)
+![image](img/power-up3.png)
+</div>
+
 - Giúp tăng sức mạnh và nâng cấp nhân vật.
 
 - ## c. Obstacle và Enemy
