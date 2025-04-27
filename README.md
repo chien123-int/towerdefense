@@ -49,10 +49,13 @@ Cấu trúc chương trình của "Conqueror's Journey" được tổ chức m�
 - <div style="text-align: center;">
 ![image](img/power-up1.png)
 ![image](img/power-up2.png)
-![image](img/power-up3.png)
 </div>
+cho các khả năng như có thể bày và nhảy cao.
 
-- Giúp tăng sức mạnh và nâng cấp nhân vật.
+- Giúp cộng thêm điểm cho nhân vật.
+- <div style="text-align: center;">
+![image](img/map.png)
+</div>
 
 - ## c. Obstacle và Enemy
 - Các vật cản sẽ xuất hiện ngẫu nhiên tùy theo cài đặt.
