@@ -1,4 +1,4 @@
-# Conqueror's Journey
+# Conqueror
 
 ## Giới thiệu chung
 
