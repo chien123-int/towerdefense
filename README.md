@@ -5,11 +5,11 @@
 - **Họ tên**: Trần Mạnh Chiến
 - **Mã sinh viên**: 24021395
 - **Lớp**: CS7
-- **Project**: Conqueror's Journeyer
+- **Project**: Conqueror
 - **Link giới thiệu game**: https://drive.google.com/file/d/1emjvsjPu1sByi9ODXMSFnEpz9ddaaBjj/view?usp=sharing
 #### Mục lục
 
-- [Conqueror's Journey](#conquerors-journey)
+- [Conqueror](#conqueror)
   - [Giới thiệu chung](#giới-thiệu-chung)
   
   - [1. Lời nói đầu](#1-lời-nói-đầu)
@@ -21,7 +21,7 @@
 
 ## 1. Lời nói đầu
 
-"Conqueror's Journey" là tựa game phiêu lưu hành động, trải qua các thử thách vô cùng khắc nghiệt với tạo hình nhân vật độc đáo. Trong game người chơi phải vượt qua các chướng ngại vật thử thách từ bức tường cứng cáp đến những kẻ thổ dân hay những con đại bàng cổ thời tiền sử. Sử dụng súng mang theo bên mình để tấn công quái đông thời nhặt các vật phẩm trên đường đi để tăng sức mạnh cho bản thân và đạt được đích đến mong muốn!
+"Conqueror" là tựa game phiêu lưu hành động, trải qua các thử thách vô cùng khắc nghiệt với tạo hình nhân vật độc đáo. Trong game người chơi phải vượt qua các chướng ngại vật thử thách từ bức tường cứng cáp đến những kẻ thổ dân hay những con đại bàng cổ thời tiền sử. Sử dụng súng mang theo bên mình để tấn công quái đông thời nhặt các vật phẩm trên đường đi để tăng sức mạnh cho bản thân và đạt được đích đến mong muốn!
 
 ## 2. Cấu trúc chương trình
 Cấu trúc chương trình của "Conqueror's Journey" được tổ chức một cách hợp lý, với các thư mục và file được phân chia rõ ràng:
