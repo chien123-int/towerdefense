@@ -15,7 +15,7 @@
 
 using namespace std;
 
-// lưu hiệu ứng âm thnah và nhạc nền
+// lưu hiệu ứng âm thanh và nhạc nền
 Mix_Music* gBackgroundMusic = nullptr;
 Mix_Music* gPlayMusic = nullptr;
 Mix_Chunk* gJumpSound = nullptr;
@@ -42,8 +42,8 @@ Game::~Game() {
 SDL_Texture* Game::loadTexture(string path) {
     SDL_Texture* newTexture = nullptr;
     // tải hình ảnh từ đường dẫn path thành suface sau đó chuyển thành texture.
-    SDL_Surface* loadedsurface = IMG_Load(path.c_str());
-    if (loadedsurface == nullptr) {
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+    if (loadedSurface == nullptr) {
         std::cerr << "Unable to load image " << path << "! SDL_image Error: " << IMG_GetError() << std::endl;
     }
     else {
@@ -51,7 +51,7 @@ SDL_Texture* Game::loadTexture(string path) {
         if (newTexture == nullptr) {
             std::cerr << "Unable to create texture from " << path << "! SDL Error: " << SDL_GetError() << std::endl;
         }
-        SDL_FreeSurface(loadedsurface);
+        SDL_FreeSurface(loadedSurface);
     }
     return newTexture;
 }
@@ -68,23 +68,23 @@ void Game::initSDL() {
         exit(1);
     }
      // Tải ảnh làm icon cho cửa sổ
-    SDL_surface* iconsurface = IMG_Load("img/logo.jfif");
+    SDL_Surface* iconSurface = IMG_Load("img/logo.jfif");
     if (iconSurface == nullptr) {
         std::cerr << "Failed to load icon image! SDL_image Error: " << IMG_GetError() << std::endl;
         exit(1);
     }
     // Tạo cửa sổ window
-    window = SDL_Createwindow("Bullet Fury", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Bullet Fury", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
     SDL_SetWindowTitle(window, "Bullet Fury");
     if (window == nullptr) {
         std::cerr << "Window could not be created! SDL Error: " << SDL_GetError() << std::endl;
         exit(1);
     }
     // Đặt icon cho cửa sổ và giải phóng surface
-    SDL_SetWindowicon(window, iconsurface);
+    SDL_SetWindowIcon(window, iconSurface);
     SDL_FreeSurface(iconSurface);
     // Tạo renderer
-    renderer = SDL_Createrenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (renderer == nullptr) {
         std::cerr << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
         exit(1);
@@ -164,11 +164,9 @@ void Game::initSDL() {
         cerr << "Powerup image loaded successfully!" << endl;
     }
 
-    gAxeTexture = loadTexture("img/axe.png");
     gMapTexture = loadTexture("img/map.png");
-    gDrumstickTexture = loadTexture("img/bread.png");
-    gBagTexture = loadTexture("img/bag.png");
-    if (!gAxeTexture || !gMapTexture || !gDrumstickTexture || !gBagTexture) {
+ 
+    if (!gMapTexture) {
         std::cerr << "Failed to load items images!" << std::endl;
         exit(1);
     }
@@ -176,7 +174,7 @@ void Game::initSDL() {
         cerr << "Items image loaded successfully!" << endl;
     }
 
-    gMenuBackgroundTexture = loadTexture("img/menu.png");
+    gMenuBackgroundTexture = loadTexture("img/menu-bg.png");
     if (!gMenuBackgroundTexture) {
         std::cerr << "Failed to load menu bg images!" << std::endl;
         exit(1);
@@ -448,7 +446,7 @@ void Game::handleEvents() {
 bool isFarEnough(const SDL_Rect& rect1, const SDL_Rect& rect2, int minDistance) {
     int dx = rect1.x - rect2.x;
     int dy = rect1.y - rect2.y;
-    int distance = sqrt(dx * dx + dy * dy);
+    double distance = sqrt(dx * dx + dy * dy);
     return distance > minDistance;
 }
 
@@ -499,10 +497,7 @@ void Game::update() {
         if (SDL_HasIntersection(&playerRect, &itemRect)) {
             ItemType type = items[i].getType();
 
-            if (type == AXE) {
-                player.collectAxe(true);
-            }
-            else if (type == MAP) {
+            if (type == MAP) {
                 score += 30;
                 mapCount++;
             }
@@ -568,12 +563,14 @@ void Game::update() {
         if (isRunning) {
             enemyWidth = 85;
             enemyHeight = 90;
+           
         }
         else {
             enemyWidth = 105;
             enemyHeight = 80;
         }
-
+       
+                
         SDL_Rect newEnemyRect = { x, y, enemyWidth, enemyHeight };
         bool canPlaceEnemy = true;
         int minDistance = 100;
@@ -582,7 +579,7 @@ void Game::update() {
             SDL_Rect existingEnemyRect = enemy.getRect();
             int dx = newEnemyRect.x - existingEnemyRect.x;
             int dy = newEnemyRect.y - existingEnemyRect.y;
-            int distance = sqrt(dx * dx + dy * dy);
+            double distance = sqrt(dx * dx + dy * dy);
             if (distance < minDistance || SDL_HasIntersection(&newEnemyRect, &existingEnemyRect)) {
                 canPlaceEnemy = false;
                 break;
@@ -609,7 +606,8 @@ void Game::update() {
     if (rand() % 300 < 1) {
         int obstacleHeight = minObstacleHeight + rand() % (maxObstacleHeight - minObstacleHeight + 1);
         int obstacleWidth = minObstacleWidth + rand() % (maxObstacleWidth - minObstacleWidth + 1);
-        obstacles.push_back(Obstacle(width, height - groundHeight - obstacleHeight, obstacleWidth, obstacleHeight));
+        int yOffset = 60;
+        obstacles.push_back(Obstacle(width, height - groundHeight - obstacleHeight + yOffset, obstacleWidth, obstacleHeight));
     }
     // Sinh item mới.
     if (rand() % 100 < 1) {
@@ -626,7 +624,7 @@ void Game::update() {
             SDL_Rect existingItemRect = item.getRect();
             int dx = newItemRect.x - existingItemRect.x;
             int dy = newItemRect.y - existingItemRect.y;
-            int distance = sqrt(dx * dx + dy * dy);
+            double distance = sqrt(dx * dx + dy * dy);
 
             if (distance < minDistance || SDL_HasIntersection(&newItemRect, &existingItemRect)) {
                 canPlaceItem = false;
@@ -646,10 +644,7 @@ void Game::update() {
             ItemType type;
             int randType = rand() % 4;
 
-            if (randType == 0) {
-                type = AXE;
-            }
-            else if (randType == 1) {
+           if (randType == 1) {
                 type = MAP;
             }
             else if (randType == 2) {
@@ -667,7 +662,7 @@ void Game::update() {
     // Sinh power-up mới.
     if (rand() % 100 < 1) {
         int x = width;
-        int y = height - groundHeight - powerUpHeight - 10;
+        int y = height - groundHeight - powerUpHeight -10;
         PowerUpType type = static_cast<PowerUpType>(rand() % 3);
         PowerUp powerUp(x, y, powerUpWidth, powerUpHeight, type);
         powerUp.setTexture(powerUpHighJumpTexture, powerUpFlyTexture, powerUpInvincibleTexture);
@@ -807,14 +802,8 @@ void Game::draw() {
     }
     // Vẽ các item .
     for (auto& item : items) {
-        if (item.getType() == AXE) {
-            item.draw(renderer, gAxeTexture);
-        }
-        else if (item.getType() == MAP) {
+       if (item.getType() == MAP) {
             item.draw(renderer, gMapTexture);
-        }
-        else if (item.getType() == DRUMSTICK) {
-            item.draw(renderer, gDrumstickTexture);
         }
         else if (item.getType() == BULLET) {
             item.draw(renderer, gBagTexture);
@@ -861,13 +850,16 @@ void Game::drawScore() {
     SDL_Texture* bulletTexture = SDL_CreateTextureFromSurface(renderer, bulletSurface);
     int bulletW, bulletH;
     SDL_QueryTexture(bulletTexture, nullptr, nullptr, &bulletW, &bulletH);
-    SDL_Rect bulletRect = { width - bulletW - 20, 60, bulletW, bulletH };
+
+
+
+    SDL_Rect bulletRect = { width - bulletW - 20,100, bulletW, bulletH};
     SDL_RenderCopy(renderer, bulletTexture, nullptr, &bulletRect);
     SDL_FreeSurface(bulletSurface);
     SDL_DestroyTexture(bulletTexture);
 
     //Vẽ số lượng map.
-    std::string mapText = "Maps: " + std::to_string(mapCount) + " / 10";
+    std::string mapText = "Maps: " + std::to_string(mapCount) + " / 15";
     SDL_Surface* mapSurface = TTF_RenderText_Solid(font, mapText.c_str(), color);
     SDL_Texture* mapTexture = SDL_CreateTextureFromSurface(renderer, mapSurface);
     int mapW, mapH;
@@ -889,13 +881,12 @@ void Game::drawMenu(bool isGameOverMenu) {
     // Vẽ nền menu 
     SDL_RenderCopy(renderer, gMenuBackgroundTexture, nullptr, &bgRect);
 
-    // Adjusting colors for better contrast
-    SDL_Color normalColor = { 128, 128, 128, 255 }; // White color for normal options
-    SDL_Color selectedColor = { 0, 155, 0, 255 };  // Green color for the selected option
-    SDL_Color titleColor = { 0, 0, 155, 255 };     // Blue color for the title
-
-    const char* menuTitle = isGameOverMenu ? "Game Over" : "Bullet Fury";
-    const char* playText = isGameOverMenu ? "Try again" : "Play";
+    // Điều chỉnh màu sắc để có độ tương phản tốt hơn
+    SDL_Color normalColor = { 128, 128, 128, 255 }; // Màu trắng cho các tùy chọn thông thường
+    SDL_Color selectedColor = { 0, 155, 0, 255 };  // Màu xanh lá cây cho tùy chọn đã chọn
+    SDL_Color titleColor = { 0, 0, 155, 255 };     //Màu xanh cho tiêu đề
+    SDL_Color textColor = { 255, 255, 255 }; // màu trắng
+    const char* menuTitle = isGameOverMenu ? "Game Over" : "Bullet fury";    const char* playText = isGameOverMenu ? "Try again" : "Play";
     const char* exitText = "Exit";
     // Tạo font chữ.
     TTF_Font* font = TTF_OpenFont("fonts/Atop-R99O3.ttf", 36);
@@ -945,6 +936,33 @@ void Game::drawMenu(bool isGameOverMenu) {
     SDL_Rect highScoreRect = { width / 2 - highScoreW / 2, height / 2 + 80, highScoreW, highScoreH };
     SDL_RenderCopy(renderer, highScoreTexture, nullptr, &highScoreRect);
     SDL_FreeSurface(highScoreSurface);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     SDL_DestroyTexture(highScoreTexture);
 
     TTF_CloseFont(font);
@@ -978,10 +996,10 @@ void Game::resetGame() {
 void Game::handleMenuInput(SDL_Keycode key) {
     if (gameState == MENU || gameState == GAME_OVER) {
         switch (key) {
-        case SDLK_UP:
+        case SDLK_w:
             selectedMenuOption = (selectedMenuOption - 1 + 2) % 2;
             break;
-        case SDLK_DOWN:
+        case SDLK_s:
             selectedMenuOption = (selectedMenuOption + 1) % 2;
             break;
         case SDLK_RETURN:
