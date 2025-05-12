@@ -51,7 +51,7 @@ Cấu trúc chương trình của "Conqueror's Journey" được tổ chức m�
   <img src="img/power-up2.png" width="200" height="200">
   <img src="img/power-up3.png" width="200" height="200">
 </div>
-cho các khả năng như có thể bày và nhảy cao.
+cho các khả năng như có thể bay, nhảy cao, và bất tử trong một khoảng thời gian nhất định.
 
 - Giúp cộng thêm điểm cho nhân vật.
 - <div style="text-align: center;">
