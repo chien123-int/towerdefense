@@ -49,6 +49,7 @@ Cấu trúc chương trình của "Conqueror's Journey" được tổ chức m�
 - <div style="text-align: center;">
 ![image](img/power-up1.png)
 ![image](img/power-up2.png)
+![image](img/power-up3.png)
 </div>
 cho các khả năng như có thể bày và nhảy cao.
 
